@@ -15,7 +15,7 @@ set $mod Mod4
 
 
 # font for window titles. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font fixed
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -23,7 +23,7 @@ floating_modifier $mod
 
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec lxterminal
 
 
 # kill focused window
@@ -35,10 +35,10 @@ bindsym $mod+d exec dmenu_run
 
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 
 # alternatively, you can use the cursor keys:
@@ -49,10 +49,10 @@ bindsym $mod+Right focus right
 
 
 # move focused window
-bindsym $mod+Shift+J move left
-bindsym $mod+Shift+K move down
-bindsym $mod+Shift+L move up
-bindsym $mod+Shift+colon move right
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
 
 
 # alternatively, you can use the cursor keys:
@@ -63,7 +63,7 @@ bindsym $mod+Shift+Right move right
 
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 
 # split in vertical orientation
@@ -163,16 +163,17 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-
-
-
+bar {
+       status_command i3status
+}
 
 # Zolmeister
 # disabled status bar (see above)
 # set border to 1
-new_window 1pixel
+default_border pixel 10
+#new_window 1pixel
 # hide border if 1 window
-hide_edge_borders both
+#hide_edge_borders both
 # Resize Containers, Vim-style                            ($mod+Control+[hjkl])
 bindsym $mod+Control+j resize grow height 5 px or 5 ppt
 bindsym $mod+Control+k resize shrink height 5 px or 5 ppt
@@ -182,18 +183,21 @@ bindsym $mod+Control+h resize shrink width 5 px or 5 ppt
 
 # custom colors
 # class                 border  backgr. text    indicator
-client.focused                #2D110C    #2D110C    #2D110C
-client.focused_inactive    #2D110C    #2D110C    #2D110C
-client.unfocused            #2D110C    #2D110C    #2D110C
-client.urgent                #2D110C    #2D110C    #2D110C
+client.focused                #ffffff #ffffff    #ffffff
+client.focused_inactive    #ffffff #ffffff    #ffffff
+client.unfocused            #ffffff #ffffff    #ffffff
+client.urgent                #ffffff #ffffff    #ffffff
 
 
 # autostart
+exec source /usr/share/nvm/init-nvm.sh
+exec setxkbmap -option grp:alt_shift_toggle us,br
+exec source /home/void/.bashrc
 exec nitrogen --restore
+# exec polybar
 # exec bash ~/.config/polybar/launch.sh --hack
 # exec picom
 # exec --no-startup-id "setxkbmap -layout br,us -model pc105 -option grp:alt_caps_toggle"
-
 
 #troque o 5 por 0 se quiser excluir as bordas.
 for_window [class="^.*"] border pixel 1
@@ -246,22 +250,15 @@ mode "$mode_gaps_outer" {
        bindsym Escape mode "default"
 }
 
+# Custom shortcuts
+bindsym Print exec flameshot gui
+bindsym $mod+Print exec scrot
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +2% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -2% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-
 # screen brightness hotkeys
 bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-
-
-
-
-
-
-
-
-

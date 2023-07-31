@@ -1,17 +1,25 @@
 #!/bin/bash
 
-git pull
-git add .
+check_git_command() {
+    if [ $? -eq 0 ]; then
+        echo "Git $1 completed successfully."
+    else
+        echo "Error!"
+        exit 1
+    fi
+}
 
-# 3. Git Commit with current date in Unix format as the commit message 
+git pull > /dev/null 2>&1
+check_git_command "pull"
+
+git add . > /dev/null 2>&1
+check_git_command "add"
+
 current_date_unix=$(date +%s)
-git commit -m "$current_date_unix"
+git commit -m "$current_date_unix" > /dev/null 2>&1
+check_git_command "commit"
 
-git push
+git push > /dev/null 2>&1
+check_git_command "push"
 
-# Check the exit status of git commands
-if [ $? -eq 0 ]; then
-    echo "Saved!"
-else
-    echo "Error!"
-fi
+echo "Success!"

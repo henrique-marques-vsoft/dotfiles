@@ -6,137 +6,65 @@
       {
         "id": "6ca71ba271817a58",
         "type": "tabs",
+        "dimension": 44.36781609195402,
         "children": [
           {
-            "id": "f81d33b34c42c210",
+            "id": "a03ad6a8b0e92b74",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Software Engineering.md",
+                "file": "Learningbank.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "b30c59f9dc85cbc7",
+            "id": "0c678908170699ad",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Systems Design.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "37895dbae7732dfb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "English.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "fdf673bd56d5a3e3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "日本語.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ff6d70f40760a90a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Software Engineering.md",
+                "file": "Untitled.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 4
+        ]
       },
       {
-        "id": "3cda3ddffa5bdf08",
-        "type": "split",
+        "id": "49234cb93d222b13",
+        "type": "tabs",
+        "dimension": 55.632183908045974,
         "children": [
           {
-            "id": "95b1f3a7215b26b5",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "30804f5c4c1576b8",
-                "type": "leaf",
-                "state": {
-                  "type": "graph",
-                  "state": {}
-                }
+            "id": "788625462bf05e90",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Programming.md",
+                "mode": "source",
+                "source": false
               }
-            ]
+            }
           },
           {
-            "id": "974f93f443a78759",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "d80c77d4056f8ddc",
-                "type": "leaf",
-                "state": {
-                  "type": "release-notes",
-                  "state": {
-                    "currentVersion": "1.3.7"
-                  }
-                }
+            "id": "9352764ceae72748",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "New Admin Dashboard endpoints.md",
+                "mode": "source",
+                "source": false
               }
-            ]
-          },
-          {
-            "id": "49234cb93d222b13",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "788625462bf05e90",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "Programming.md",
-                    "mode": "source",
-                    "source": false
-                  }
-                }
-              },
-              {
-                "id": "5ced0a4cacbeaf0f",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "Frontend.md",
-                    "mode": "source",
-                    "source": false
-                  }
-                }
-              }
-            ],
-            "currentTab": 1
+            }
           }
         ],
-        "direction": "horizontal"
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -186,7 +114,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "87b4a42469a2b2a1",
@@ -202,7 +131,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Software Engineering.md",
+                "file": "New Admin Dashboard endpoints.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -219,7 +148,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Software Engineering.md",
+                "file": "New Admin Dashboard endpoints.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -242,7 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Software Engineering.md"
+                "file": "New Admin Dashboard endpoints.md"
               }
             }
           }
@@ -263,16 +192,22 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "813bf6f7b8051c6e",
+  "active": "9352764ceae72748",
   "lastOpenFiles": [
-    "Photography.md",
-    "Frontend.md",
+    "Learningbank.md",
+    "Untitled.md",
+    "New Admin Dashboard endpoints.md",
+    "Programming.md",
+    "C Programming Language.md",
+    "glow.tar.gz",
     "Software Engineering.md",
     "Backend.md",
-    "vault.sh",
-    "Systems Design.md",
+    "YouTube.md",
     "English.md",
-    "Programming.md",
-    "日本語.md"
+    "Systems Design.md",
+    "日本語.md",
+    "Frontend.md",
+    "Photography.md",
+    "vault.sh"
   ]
 }

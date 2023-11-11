@@ -12,8 +12,12 @@ Time complexity -> https://en.wikipedia.org/wiki/Time_complexity
 ## Arrays Data Structure
 
 ## Linear Search & Kata Setup
+A linear search is a search algorithm that sequentially checks each element in a list until it finds one that matches the target value. It is pretty similar to the indexOf method in JavaScript.
+You're literally checking each element in a list until you find one that matches the target value.
+The time complexity of a linear search is O(n) `Linear Time` because it grows linearly with the size of the list.
 
 ## Binary Search Algorithm
+You're given the fact that your data is correctly sorted
 
 ## Two Crystal Balls Problem 
 

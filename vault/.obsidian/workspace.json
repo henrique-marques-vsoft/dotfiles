@@ -12,24 +12,16 @@
             "id": "a03ad6a8b0e92b74",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Learningbank.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
             "id": "0c678908170699ad",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Untitled.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           },
           {
@@ -42,7 +34,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "49234cb93d222b13",
@@ -55,7 +48,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Programming.md",
+                "file": "C Programming Language.md",
                 "mode": "source",
                 "source": false
               }
@@ -65,16 +58,11 @@
             "id": "9352764ceae72748",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "New Admin Dashboard endpoints.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -140,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "New Admin Dashboard endpoints.md",
+                "file": "C Programming Language.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -157,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "New Admin Dashboard endpoints.md",
+                "file": "C Programming Language.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -180,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "New Admin Dashboard endpoints.md"
+                "file": "C Programming Language.md"
               }
             }
           },
@@ -211,12 +199,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "9352764ceae72748",
+  "active": "788625462bf05e90",
   "lastOpenFiles": [
+    "Programming.md",
     "Learningbank.md",
     "Untitled.md",
     "New Admin Dashboard endpoints.md",
-    "Programming.md",
     "C Programming Language.md",
     "glow.tar.gz",
     "Software Engineering.md",

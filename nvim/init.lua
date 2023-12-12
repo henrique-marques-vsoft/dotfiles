@@ -44,6 +44,11 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 --vim.g.loaded_netrw = 1
 --vim.g.loaded_netrwPlugin = 1
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+-- Make netrw use the directory I'm in (useful for creating new files)
+vim.g.netrw_keepdir = 0
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -181,6 +186,13 @@ require('lazy').setup({
 
   {
     'nvim-tree/nvim-web-devicons',
+  },
+
+  {
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
   },
 
   {
@@ -662,3 +674,11 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+local wk = require("which-key")
+
+wk.register({
+  f = {
+    name = "File",
+  },
+}, { prefix = "<leader>" })

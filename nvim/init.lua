@@ -163,26 +163,26 @@ require('lazy').setup({
   },
 
   {
-    'ThePrimeagen/harpoon',
-    branch = "harpoon2",
-    requires = { {"nvim-lua/plenary.nvim"} }
+	  "ThePrimeagen/harpoon",
+	  branch = "harpoon2",
+	  dependencies = { "nvim-lua/plenary.nvim" }
   },
 
-  -- {
-  --   'nvim-tree/nvim-tree.lua',
-  --   opts = {
-  --     sort_by = "case_sensitive",
-  --     view = {
-  --       width = 30,
-  --     },
-  --     renderer = {
-  --       group_empty = true,
-  --     },
-  --     filters = {
-  --       dotfiles = true,
-  --     },
-  --   }
-  -- },
+  {
+	  'nvim-tree/nvim-tree.lua',
+	  opts = {
+		  sort_by = "case_sensitive",
+		  view = {
+			  width = 130,
+		  },
+		  renderer = {
+			  group_empty = true,
+		  },
+		  filters = {
+			  dotfiles = false,
+		  },
+	  }
+  },
 
   {
     'nvim-tree/nvim-web-devicons',
@@ -238,25 +238,25 @@ require('lazy').setup({
     end
   },
 
-  {
-    'catppuccin/nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'catppuccin-mocha'
-      vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
-      vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
-    end,
-  },
-
+  -- THEMES --
   -- {
-  --   'morhetz/gruvbox',
+  --   'catppuccin/nvim',
   --   priority = 1000,
   --   config = function()
-  --     vim.cmd.colorscheme 'gruvbox'
+  --     vim.cmd.colorscheme 'catppuccin-mocha'
   --     vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
   --     vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
   --   end,
   -- },
+  {
+    'morhetz/gruvbox',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'gruvbox'
+      vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
+      vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
+    end,
+  },
 
   {
     -- Set lualine as statusline
@@ -265,7 +265,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'catppuccin',
+        theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },
@@ -273,15 +273,6 @@ require('lazy').setup({
   },
 
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-
-  -- {
-  --   'lukas-reineke/indent-blankline.nvim',
-  --   opts = {
-  --     char = '┊',
-  --     show_trailing_blankline_indent = false,
-  --   },
-  --   main = "ibl",
-  -- },
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -329,7 +320,7 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
-}, {})
+}})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -434,10 +425,10 @@ function DisabledCodeium()
     vim.g.codeium_enabled = false
 end
 
--- require('nvim-tree').setup()
+require('nvim-tree').setup()
 
 
--- vim.keymap.set('n', '<leader>fe', require('nvim-tree.api').tree.toggle, {desc = '[F]ile [E]xplorer'})
+vim.keymap.set('n', '<leader>fe', require('nvim-tree.api').tree.toggle, {desc = '[F]ile [E]xplorer'})
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
@@ -478,6 +469,7 @@ require('nvim-treesitter.configs').setup {
       node_decremental = '<M-space>',
     },
   },
+
   textobjects = {
     select = {
       enable = true,
@@ -492,6 +484,7 @@ require('nvim-treesitter.configs').setup {
         ['ic'] = '@class.inner',
       },
     },
+
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
@@ -681,4 +674,25 @@ wk.register({
   f = {
     name = "File",
   },
+  g = {
+    name = "Git",
+  },
+  c = {
+    name = "Codeium",
+  },
+  d = {
+    name = "Document",
+  },
+  p = {
+    name = "Preview",
+  },
+  r = {
+    name = "Rename",
+  },
+  s = {
+    name = "Search",
+  },
+  w = {
+    name = "Workspace",
+  }
 }, { prefix = "<leader>" })

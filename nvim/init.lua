@@ -179,7 +179,7 @@ require('lazy').setup({
 			  group_empty = true,
 		  },
 		  filters = {
-			  dotfiles = false,
+			  dotfiles = true,
 		  },
 	  }
   },
@@ -231,7 +231,7 @@ require('lazy').setup({
     'Exafunction/codeium.vim',
     config = function()
       -- Change '<C-g>' here to any keycode you like.
-      vim.keymap.set('i', '<C-g>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<C-c>', function() return vim.fn['codeium#Accept']() end, { expr = true })
       vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
       vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
       vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
@@ -248,6 +248,7 @@ require('lazy').setup({
   --     vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
   --   end,
   -- },
+
   {
     'morhetz/gruvbox',
     priority = 1000,
@@ -258,19 +259,54 @@ require('lazy').setup({
     end,
   },
 
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'gruvbox',
-        component_separators = '|',
-        section_separators = '',
+    {
+      -- Set lualine as statusline
+      'nvim-lualine/lualine.nvim',
+      -- See `:help lualine.txt`
+      opts = {
+	options = {
+	  icons_enabled = true,
+	  theme = 'gruvbox',
+	  component_separators = { left = '', right = ''},
+	  section_separators = { left = '', right = ''},
+	  disabled_filetypes = {
+	    statusline = {},
+	    winbar = {},
+	  },
+
+	  ignore_focus = {},
+	  always_divide_middle = true,
+	  globalstatus = false,
+	  refresh = {
+	    statusline = 1000,
+	    tabline = 1000,
+	    winbar = 1000,
+	  }
+	},
+
+	sections = {
+	  lualine_a = {'mode'},
+	  lualine_b = {'diff', 'diagnostics'},
+	  lualine_c = {{'filename', path = 4}},
+	  lualine_y = {'progress'},
+	  lualine_z = {'location'}
+	},
+
+	inactive_sections = {
+	  lualine_a = {},
+	  lualine_b = {},
+	  lualine_c = {},
+	  lualine_x = {},
+	  lualine_y = {},
+	  lualine_z = {}
+	},
+
+	tabline = {},
+	winbar = {},
+	inactive_winbar = {},
+	extensions = {}
       },
     },
-  },
 
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 

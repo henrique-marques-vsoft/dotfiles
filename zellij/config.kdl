@@ -332,12 +332,26 @@ themes {
     black "#181825" // Mantle
     white "#cdd6f4"
   }
+
+  tsurugi-red {
+    bg "#585b70" // Surface2
+    fg "#cdd6f4"
+    red "#f38ba8"
+    green "#BC2936"
+    blue "#89b4fa"
+    yellow "#f9e2af"
+    magenta "#BC2936" // Pink
+    orange "#fab387" // Peach
+    cyan "#89dceb" // Sky
+    black "#1B1216" // Mantle
+    white "#BC2936"
+  }
 }
 
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "catppuccin-mocha"
+theme "tsurugi-red"
 
 // The name of the default layout to load on startup
 // Default: "default"

@@ -8,11 +8,11 @@
 
     "modules-left": [
         "custom/launcher",
-        "sway/workspaces",
         "sway/mode",
     ],
  
     "modules-center": [
+        "sway/workspaces",
     ],
 
     "modules-right": [
@@ -21,7 +21,7 @@
         "memory",
         "cpu",
         "pulseaudio",
-        "custom/keyboard-layout",
+        //"custom/keyboard-layout",
         "battery",
         //"custom/PBPbattery",
         "backlight#icon",
@@ -194,7 +194,7 @@
 
     "custom/terminal": {
         "format": " ",
-        "on-click": "exec xfce4-terminal",
+        "on-click": "exec kitty",
         "tooltip": false
     },
 

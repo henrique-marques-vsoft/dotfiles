@@ -1,6 +1,12 @@
 #!/bin/sh
-#use yes | <command> to execute without confirmation
-#--disable-download-timeout to execute withou timetout
-yes | pacman -S firefox gimp yay i3status neofetch gnome-terminal rofi picom nitrogen feh make vtop dmenu ranger nnn flameshot git github-desktop-bin mpv psensor nodejs qbittorrent nautilus arandr
 
-#etc.
+source_dir=$(pwd)
+destination_dir="$HOME/.configaskjldaksdj"
+
+# Ensure destination directory exists
+mkdir -p "$destination_dir"
+
+# Copy contents recursively from source directory to destination directory
+cp -r "$source_dir"/* "$destination_dir"
+
+echo "Contents of current directory copied to ~/.config successfully."

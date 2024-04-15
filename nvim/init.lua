@@ -683,7 +683,7 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
-					{ name = "codeium" },
+					-- { name = "codeium" },
 				},
 				formatting = {
 					format = require("lspkind").cmp_format({
@@ -752,23 +752,23 @@ require("lazy").setup({
 		"onsails/lspkind.nvim",
 	},
 
-	{
-		"exafunction/codeium.vim",
-		config = function()
-			vim.keymap.set("i", "<c-c>", function()
-				return vim.fn["codeium#accept"]()
-			end, { expr = true })
-			vim.keymap.set("i", "<c-;>", function()
-				return vim.fn["codeium#cyclecompletions"](1)
-			end, { expr = true })
-			vim.keymap.set("i", "<c-,>", function()
-				return vim.fn["codeium#cyclecompletions"](-1)
-			end, { expr = true })
-			vim.keymap.set("i", "<c-x>", function()
-				return vim.fn["codeium#clear"]()
-			end, { expr = true })
-		end,
-	},
+	-- {
+	-- 	"exafunction/codeium.vim",
+	-- 	config = function()
+	-- 		vim.keymap.set("i", "<c-c>", function()
+	-- 			return vim.fn["codeium#accept"]()
+	-- 		end, { expr = true })
+	-- 		vim.keymap.set("i", "<c-;>", function()
+	-- 			return vim.fn["codeium#cyclecompletions"](1)
+	-- 		end, { expr = true })
+	-- 		vim.keymap.set("i", "<c-,>", function()
+	-- 			return vim.fn["codeium#cyclecompletions"](-1)
+	-- 		end, { expr = true })
+	-- 		vim.keymap.set("i", "<c-x>", function()
+	-- 			return vim.fn["codeium#clear"]()
+	-- 		end, { expr = true })
+	-- 	end,
+	-- },
 
 	{
 		"nvim-tree/nvim-tree.lua",

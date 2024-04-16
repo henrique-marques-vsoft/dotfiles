@@ -6,8 +6,7 @@
 
 {
   imports =
-    [
-      # Include the results of the hardware scan.
+    [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -17,10 +16,6 @@
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -41,36 +36,6 @@
     LC_PAPER = "pt_PT.UTF-8";
     LC_TELEPHONE = "pt_PT.UTF-8";
     LC_TIME = "pt_PT.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  #  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-
-    enable = true;
-    desktopManager = {
-      xterm.enable = false;
-    };
-    displayManager = {
-      defaultSession = "none+i3";
-    };
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        dmenu
-        i3status
-        i3lock
-        i3blocks
-      ];
-    };
   };
 
   # Enable CUPS to print documents.
@@ -108,10 +73,6 @@
     isNormalUser = true;
     description = "void";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-      thunderbird
-    ];
   };
 
   # Allow unfree packages
@@ -134,57 +95,20 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Misc
+    # Dev
     vim
     git
     lazygit
-    wget
-    unzip
     fish
-    yt-dlp
-    figlet
     kitty
     neovim
-    yazi
-    btop
-    coreutils
-    fd
+    gedit
+    dbeaver
+    insomnia
+    docker-compose
     emacs
-    libtool
-    # Games
-    taisei
-    # WM/DE/Rice
-    grim
-    slurp
-    wl-clipboard
-    mako
-    sway
-    waybar
-    swaylock
-    waypaper
-    wayshot
-    swaybg
-    wofi
-    gimp
-    mpv
-    psensor
-    qbittorrent
-    gparted
-    gnumake
-    polkit_gnome
-    lxappearance
-    gruvbox-dark-gtk
     go
     hugo
-    bash
-    cmake
-    gedit
-    neofetch
-    blueman
-    xfce.thunar
-    thunderbird
-    bitwarden
-    xdg-desktop-portal-gtk
     fzf
     ripgrep
     fnm
@@ -194,42 +118,99 @@
     gcc
     zig
     clang
+
+    # Utilities
+    wget
+    unzip
+    coreutils
+    fd
+    psensor
+    gnumake
+    libtool
+    bash
+    cmake
+
+    # Misc
+    yt-dlp
+    figlet
+    yazi
+    transmission-gtk
+    mpv
+    gparted
+    ungoogled-chromium
+    btop
+    bitwarden
+    gimp
+    blueman
+    xfce.thunar
+    thunderbird
+    qutebrowser
+
+    # Games
+    taisei
+
+    # WM/DE/Rice
+    grim
+    slurp
+    wl-clipboard
+    mako
+    sway
+    waybar
+    swaylock
+    wayshot
+    swaybg
+    wofi
+    gsettings-desktop-schemas
+    polkit_gnome
+    lxappearance-gtk2
+    gruvbox-dark-gtk
+    pkgs.gnome.gnome-tweaks
+    neofetch
+    xdg-desktop-portal-gtk
+
     # Fonts
     iosevka
     iosevka-comfy.comfy
   ];
 
   systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
+  	user.services.polkit-gnome-authentication-agent-1 = {
+		description = "polkit-gnome-authentication-agent-1";
+		wantedBy = ["graphical-session.target"];
+		wants = ["graphical-session.target"];
+		after = ["graphical-session.target"];
+		serviceConfig = {
+			Type = "simple";
+			ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+			Restart = "on-failure";
+			RestartSec = 1;
+			TimeoutStopSec = 10;
+		};
+	};
   };
 
   services.gnome.gnome-keyring.enable = true;
 
-  # Enable picom
-  services.picom.enable = true;
+  virtualisation.docker.enable = true;
 
   nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+  	"nix-command"
+	"flakes"
   ];
 
-  programs.hyprland.enable = true;
-
   programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
+	  enable = true;
+	  wrapperFeatures.gtk = true;
+	      extraPackages = with pkgs; [
+    	      swaylock
+    	      swayidle
+    	      wl-clipboard
+    	      mako
+    	      grim
+    	      slurp
+    	      kitty
+    	      wofi
+    	    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are

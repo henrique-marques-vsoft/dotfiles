@@ -238,7 +238,7 @@ titlebar_border_thickness 0
 client.focused #ffffff #ffffff #ffffff #ffffff
 
 # Opacity rules
-# for_window [app_id="kitty"] opacity 0.90
-# for_window [class="Emacs"] opacity 0.90
+for_window [app_id="kitty"] opacity 0.90
+for_window [class="Emacs"] opacity 0.90
 
 include /etc/sway/config.d/*

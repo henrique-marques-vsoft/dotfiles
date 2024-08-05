@@ -2,13 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, callPackage, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+  
+  # Link derivations to run on /libexec
+  environment.pathsToLink = [ "/libexec" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -17,9 +20,25 @@
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
   # Enable networking
   networking.networkmanager.enable = true;
-
+  
+    # Enable bluetooth
+  hardware.bluetooth.settings = {
+    #enable = true;
+    #powerOnBoot = true;
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  services.blueman.enable = true;
+  
   # Set your time zone.
   time.timeZone = "Europe/Lisbon";
 
@@ -38,19 +57,42 @@
     LC_TIME = "pt_PT.UTF-8";
   };
 
+  # Enable the GNOME Desktop Environment.
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    xkb.layout = "us, br";
+    xkb.variant = "";
+    xkb.options = "grp:alt_shift_toggle";
+  };
+
+  # Configure console keymap
+  console.keyMap = "uk";
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable bluetooth
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  services.blueman.enable = true;
+  
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    iosevka
+    iosevka-comfy.comfy
+  ];
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.polkit.enable = true;
+  hardware.pulseaudio = {
+    enable = false;
+    package = pkgs.pulseaudioFull;
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -69,28 +111,49 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.void = {
+  users.users.computer = {
     isNormalUser = true;
-    description = "void";
+    description = "computer";
     extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [
+    #  thunderbird
+    ];
   };
+
+  # Install firefox.
+  programs.firefox.enable = true;
+  
+  # Install DConf
+  programs.dconf.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts.githubRelease
-    dina-font
-    proggyfonts
-    iosevka
-    iosevka-comfy.comfy
-  ];
+  # Set i3wm
+  services.xserver = {
+    enable = true;
+
+    desktopManager = {
+      xterm.enable = false;
+    };
+   
+   #windowManager.fvwm2.enable = true;
+   #windowManager.windowmaker.enable = true;
+
+   windowManager.i3 = {
+     enable = true;
+     extraPackages = with pkgs; [
+       dmenu
+       i3status
+       i3lock
+       i3blocks
+    ];
+   };
+  };
+
+services.displayManager. defaultSession = "none+i3";
+#services.displayManager. defaultSession = "none+fvwm2";
+#services.displayManager.defaultSession = "none+windowmaker";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -99,27 +162,38 @@
     vim
     git
     lazygit
-    fish
     kitty
-    neovim
     gedit
-    dbeaver
-    insomnia
+    #dbeaver
     docker-compose
     emacs
     go
+    glibc
+    meson
+    ninja
+    irssi
     hugo
     fzf
     ripgrep
-    fnm
+    nodejs_20
     rustc
     rust-analyzer
     cargo
     gcc
     zig
     clang
+    eslint_d
+    nodePackages.volar
+    nodePackages.eslint
+    nodePackages.typescript-language-server
+    node2nix
+    typescript
+    tree-sitter
+    insomnia
+    zellij
 
     # Utilities
+    pulseaudio
     wget
     unzip
     coreutils
@@ -128,7 +202,13 @@
     gnumake
     libtool
     bash
+    fish
     cmake
+    flameshot
+    lm_sensors
+    ytfzf
+    ani-cli
+    pidgin
 
     # Misc
     yt-dlp
@@ -138,80 +218,62 @@
     mpv
     gparted
     ungoogled-chromium
+    librewolf
     btop
     bitwarden
+    darktable
     gimp
     blueman
     xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
     thunderbird
     qutebrowser
+    rhythmbox
+    puddletag
+    soulseekqt
+    nicotine-plus
+    slskd
+    whatsapp-for-linux
 
     # Games
     taisei
+    (retroarch.override{
+	cores = with libretro; [
+		genesis-plus-gx
+		snes9x
+		beetle-psx-hw
+		pcsx2
+        ];
+    })
 
     # WM/DE/Rice
-    grim
-    slurp
-    wl-clipboard
-    mako
-    sway
-    waybar
-    swaylock
-    wayshot
-    swaybg
-    wofi
+    feh
+    polybarFull
+    catppuccin
+    arandr
+    nitrogen
+    rofi
     gsettings-desktop-schemas
     polkit_gnome
-    lxappearance-gtk2
+    lxappearance
     gruvbox-dark-gtk
-    pkgs.gnome.gnome-tweaks
+    gnome.gnome-tweaks
     neofetch
     xdg-desktop-portal-gtk
+    picom
+    #windowmaker
+    #fvwm
 
     # Fonts
     iosevka
     iosevka-comfy.comfy
+
+    # Other
+    usbutils
+    udiskie
+    udisks
   ];
-
-  systemd = {
-  	user.services.polkit-gnome-authentication-agent-1 = {
-		description = "polkit-gnome-authentication-agent-1";
-		wantedBy = ["graphical-session.target"];
-		wants = ["graphical-session.target"];
-		after = ["graphical-session.target"];
-		serviceConfig = {
-			Type = "simple";
-			ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-			Restart = "on-failure";
-			RestartSec = 1;
-			TimeoutStopSec = 10;
-		};
-	};
-  };
-
-  services.gnome.gnome-keyring.enable = true;
-
-  virtualisation.docker.enable = true;
-
-  nix.settings.experimental-features = [
-  	"nix-command"
-	"flakes"
-  ];
-
-  programs.sway = {
-	  enable = true;
-	  wrapperFeatures.gtk = true;
-	      extraPackages = with pkgs; [
-    	      swaylock
-    	      swayidle
-    	      wl-clipboard
-    	      mako
-    	      grim
-    	      slurp
-    	      kitty
-    	      wofi
-    	    ];
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -222,6 +284,9 @@
   # };
 
   # List services that you want to enable:
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -238,6 +303,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }

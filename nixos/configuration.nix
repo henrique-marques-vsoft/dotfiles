@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-  
+
   # Link derivations to run on /libexec
   environment.pathsToLink = [ "/libexec" ];
 
@@ -26,11 +26,9 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
-    # Enable bluetooth
+
+  # Enable bluetooth
   hardware.bluetooth.settings = {
-    #enable = true;
-    #powerOnBoot = true;
     General = {
       Enable = "Source,Sink,Media,Socket";
     };
@@ -38,7 +36,7 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
-  
+
   # Set your time zone.
   time.timeZone = "Europe/Lisbon";
 
@@ -58,7 +56,7 @@
   };
 
   # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
   #services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
@@ -73,26 +71,9 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    mplus-outline-fonts.githubRelease
-    dina-font
-    proggyfonts
-    iosevka
-    iosevka-comfy.comfy
-  ];
 
   # Enable sound with pipewire.
-  hardware.pulseaudio = {
-    enable = false;
-    package = pkgs.pulseaudioFull;
-  };
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -120,69 +101,76 @@
     ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-  
-  # Install DConf
-  programs.dconf.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Set i3wm
+  # List services that you want to enable:
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  programs.dconf.enable = true;
+  programs.firefox.enable = true;
+  #programs.catppuccin.enable = true;
+  #services.catppuccin.enable = true;
+
+
+  # EXWM setup
+  services.displayManager. defaultSession = "none+exwm";
   services.xserver = {
     enable = true;
-
     desktopManager = {
       xterm.enable = false;
     };
    
-   #windowManager.fvwm2.enable = true;
-   #windowManager.windowmaker.enable = true;
-
-   windowManager.i3 = {
+   windowManager.exwm = {
      enable = true;
-     extraPackages = with pkgs; [
-       dmenu
-       i3status
-       i3lock
-       i3blocks
-    ];
    };
   };
 
-services.displayManager. defaultSession = "none+i3";
-#services.displayManager. defaultSession = "none+fvwm2";
-#services.displayManager.defaultSession = "none+windowmaker";
+  # i3wm setup
+#  services.displayManager. defaultSession = "none+i3";
+#  services.xserver = {
+#    enable = true;
+#    desktopManager = {
+#      xterm.enable = false;
+#    };
+#   
+#   windowManager.i3 = {
+#     enable = true;
+#     extraPackages = with pkgs; [
+#       dmenu
+#       i3status
+#       i3lock
+#       i3blocks
+#    ];
+#   };
+#  };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile
   environment.systemPackages = with pkgs; [
     # Dev
     vim
+    neovim
     git
-    lazygit
     kitty
-    gedit
-    #dbeaver
     docker-compose
     emacs
     go
     glibc
     meson
     ninja
-    irssi
     hugo
     fzf
     ripgrep
-    nodejs_20
     rustc
     rust-analyzer
     cargo
     gcc
-    zig
+    jdk
+    clojure
+    leiningen
     clang
     eslint_d
+    nodejs_20
     nodePackages.volar
     nodePackages.eslint
     nodePackages.typescript-language-server
@@ -202,38 +190,36 @@ services.displayManager. defaultSession = "none+i3";
     gnumake
     libtool
     bash
-    fish
     cmake
     flameshot
     lm_sensors
     ytfzf
     ani-cli
-    pidgin
-
-    # Misc
     yt-dlp
     figlet
-    yazi
+    cowsay
+    pulsemixer
+
+    # Misc
     transmission-gtk
     mpv
+    vlc
     gparted
-    ungoogled-chromium
     librewolf
     btop
     bitwarden
     darktable
     gimp
     blueman
+    yazi
     xfce.thunar
     xfce.thunar-archive-plugin
     xfce.thunar-volman
     thunderbird
-    qutebrowser
     rhythmbox
-    puddletag
-    soulseekqt
     nicotine-plus
     slskd
+    pidgin
     whatsapp-for-linux
 
     # Games
@@ -250,7 +236,6 @@ services.displayManager. defaultSession = "none+i3";
     # WM/DE/Rice
     feh
     polybarFull
-    catppuccin
     arandr
     nitrogen
     rofi
@@ -261,9 +246,12 @@ services.displayManager. defaultSession = "none+i3";
     gnome.gnome-tweaks
     neofetch
     xdg-desktop-portal-gtk
+    nerdfonts
     picom
-    #windowmaker
-    #fvwm
+    dmenu
+    i3status
+    i3lock
+    i3blocks
 
     # Fonts
     iosevka
@@ -275,6 +263,20 @@ services.displayManager. defaultSession = "none+i3";
     udisks
   ];
 
+  # Fonts
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    iosevka-comfy.comfy
+  ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -284,9 +286,6 @@ services.displayManager. defaultSession = "none+i3";
   # };
 
   # List services that you want to enable:
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
-
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
